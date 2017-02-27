@@ -1,12 +1,12 @@
 'use strict';
 
 // files controller
-angular.module('files').controller('FilesController', ['$scope', '$stateParams', '$location', 'Authentication', 'Files','FileUploader', '$timeout', '$window','$http',
-  function ($scope, $stateParams, $location, Authentication, Files, FileUploader, $timeout, $window, $http) {
+angular.module('files').controller('FilesController', ['$scope', '$stateParams', '$location', 'Authentication', 'Files', 'FileUploader', '$timeout', '$window', '$http',
+  function($scope, $stateParams, $location, Authentication, Files, FileUploader, $timeout, $window, $http) {
     $scope.authentication = Authentication;
 
     // Create new File
-    $scope.create = function (isValid) {
+    $scope.create = function(isValid) {
       //$scope.uploadFile();
       $scope.error = null;
 
@@ -21,22 +21,23 @@ angular.module('files').controller('FilesController', ['$scope', '$stateParams',
       fd.append('content', $scope.content);
 
       $http.post('api/files', fd, {
-          transformRequest: angular.identity,
-          headers: {'Content-Type': undefined}
-       })
+        transformRequest: angular.identity,
+        headers: {
+          'Content-Type': undefined
+        }
+      })
 
-       .success(function(response){
-         $scope.success = true;
+        .success(function(response) {
+          $scope.success = true;
 
-         $location.path('files/' + response._id);
-       })
+          $location.path('files/' + response._id);
+        })
 
-       .error(function(){
-       });
+        .error(function() {});
     };
 
     // Remove existing file
-    $scope.remove = function (file) {
+    $scope.remove = function(file) {
       if (file) {
         file.$remove();
 
@@ -46,14 +47,14 @@ angular.module('files').controller('FilesController', ['$scope', '$stateParams',
           }
         }
       } else {
-        $scope.file.$remove(function () {
+        $scope.file.$remove(function() {
           $location.path('files');
         });
       }
     };
 
     // Update existing file
-    $scope.update = function (isValid) {
+    $scope.update = function(isValid) {
       $scope.error = null;
 
       if (!isValid) {
@@ -64,38 +65,38 @@ angular.module('files').controller('FilesController', ['$scope', '$stateParams',
 
       var file = $scope.file;
 
-      file.$update(function () {
+      file.$update(function() {
         $location.path('files/' + file._id);
-      }, function (errorResponse) {
+      }, function(errorResponse) {
         $scope.error = errorResponse.data.message;
       });
     };
 
     // Find a list of files
-    $scope.find = function () {
+    $scope.find = function() {
       $scope.files = Files.query();
     };
 
     // Find existing file
-    $scope.findOne = function () {
+    $scope.findOne = function() {
       $scope.file = Files.get({
         fileId: $stateParams.fileId
       });
     };
   }
 ])
-.directive('fileModel', ['$parse', function ($parse) {
-  return {
-     restrict: 'A',
-     link: function(scope, element, attrs) {
+  .directive('fileModel', ['$parse', function($parse) {
+    return {
+      restrict: 'A',
+      link: function(scope, element, attrs) {
         var model = $parse(attrs.fileModel);
         var modelSetter = model.assign;
 
-        element.bind('change', function(){
-           scope.$apply(function(){
-              modelSetter(scope, element[0].files[0]);
-           });
+        element.bind('change', function() {
+          scope.$apply(function() {
+            modelSetter(scope, element[0].files[0]);
+          });
         });
-     }
-  };
-         }]);
+      }
+    };
+  }]);
