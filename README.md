@@ -56,19 +56,10 @@ There are several ways you can get the MEAN.JS boilerplate:
 The recommended way to get MEAN.js is to use git to directly clone the MEAN.JS repository:
 
 ```bash
-$ git clone https://github.com/meanjs/mean.git meanjs
+$ git clone https://github.com/santoshshinde2012/MEANTraining.git
 ```
 
 This will clone the latest version of the MEAN.JS repository to a **meanjs** folder.
-
-### Downloading The Repository Zip File
-Another way to use the MEAN.JS boilerplate is to download a zip copy from the [master branch on GitHub](https://github.com/meanjs/mean/archive/master.zip). You can also do this using `wget` command:
-
-```bash
-$ wget https://github.com/meanjs/mean/archive/master.zip -O meanjs.zip; unzip meanjs.zip; rm meanjs.zip
-```
-
-Don't forget to rename **mean-master** after your project name.
 
 ### Yo Generator
 Another way would be to use the [Official Yo Generator](http://meanjs.org/generator.html), which generates a copy of the MEAN.JS 0.4.x boilerplate and supplies an application generator to ease your daily development cycles.
